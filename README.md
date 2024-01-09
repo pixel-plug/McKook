@@ -1,4 +1,4 @@
-为Kook和Minecraft建议桥梁，就像DiscordSRV一样
+为Kook和Minecraft建立桥梁，就像DiscordSRV一样
 
 ![image](https://github.com/meteorOSS/McKook/assets/61687266/db4860a1-5d5c-4483-b5a5-24aad1dc7f77)
 
