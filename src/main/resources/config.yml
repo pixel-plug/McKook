@@ -1,0 +1,11 @@
+
+setting:
+  # 使用频道号
+  guild:
+    - '9922005485817007'
+  channel:
+    闲聊频道: '3416199282635005'
+    公告频道: '7318381633665461'
+
+kook:
+  bot-token: '1/MjY5MjU=/vXEHeZIZhN1ssthMgWS/mg=='

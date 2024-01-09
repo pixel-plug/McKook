@@ -1,0 +1,10 @@
+# 玩家加入服务器时
+
+# 使用频道
+channels:
+  - '公告频道'
+
+# 使用头像url
+avatar-url: 'https://minotar.net/avatar/{player}/32.png'
+
+message: '{player} 加入了服务器'

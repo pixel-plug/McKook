@@ -1,0 +1,7 @@
+name: McKook
+version: '${project.version}'
+main: com.meteor.mckook.McKook
+api-version: 1.13
+author: meteor
+commands:
+  mkook:
