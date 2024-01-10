@@ -1,11 +1,10 @@
 package com.meteor.mckook.model;
 
 import com.meteor.mckook.McKook;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
-import snw.jkook.message.Message;
+import org.bukkit.event.player.PlayerEvent;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +36,12 @@ public abstract class AbstractKookMessage implements Listener, snw.jkook.event.L
     public void register(){
         this.plugin.getServer().getPluginManager().registerEvents(this,plugin);
         getPlugin().getKookBot().registerKookListener(this);
+    }
+
+    public Map<String,String> context(PlayerEvent playerEvent){
+        Map<String,String> context = new HashMap<>();
+        context.put("player",playerEvent.getPlayer().getName());
+        return context;
     }
 
     public void unRegister(){

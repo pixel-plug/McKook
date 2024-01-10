@@ -4,7 +4,51 @@
 channels:
   - '公告频道'
 
-# 使用头像url
-avatar-url: 'https://minotar.net/avatar/{player}/32.png'
+message:
+  quit: |
+    [
+      {
+        "type": "card",
+        "theme": "info",
+        "size": "sm",
+        "modules": [
+          {
+            "type": "section",
+            "text": {
+              "type": "plain-text",
+              "content": "{player} 退出了游戏"
+            },
+            "mode": "left",
+            "accessory": {
+              "type": "image",
+              "src": "https://minotar.net/avatar/{player}/32.png",
+              "size": "sm"
+            }
+          }
+        ]
+      }
+    ]
 
-message: '{player} 加入了服务器'
+  join: |
+    [
+      {
+        "type": "card",
+        "theme": "info",
+        "size": "sm",
+        "modules": [
+          {
+            "type": "section",
+            "text": {
+              "type": "plain-text",
+              "content": "{player} 加入了游戏"
+            },
+            "mode": "left",
+            "accessory": {
+              "type": "image",
+              "src": "https://minotar.net/avatar/{player}/32.png",
+              "size": "sm"
+            }
+          }
+        ]
+      }
+    ]

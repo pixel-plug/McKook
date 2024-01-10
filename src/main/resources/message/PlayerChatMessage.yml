@@ -1,9 +1,23 @@
 # 聊天转播频道
 channel: '闲聊频道'
 
-# 使用头像url
-avatar-url: 'https://minotar.net/avatar/{player}/32.png'
-
 message:
-  kook: '{player} 说: {message}'
+  kook: |
+    [
+      {
+        "type": "card",
+        "theme": "secondary",
+        "size": "lg",
+        "modules": [
+          {
+            "type": "section",
+            "text": {
+              "type": "kmarkdown",
+              "content": "(font){player} 说: (font)[success] {message} (font)(游戏内)(font)[pink]"
+            }
+          }
+        ]
+      }
+    ]
+
   minecraft: '&f[&a闲聊频道&f] &f{user}: &7{message}'
