@@ -1,9 +1,9 @@
 package com.meteor.mckook;
 
 import com.meteor.mckook.kook.KookBot;
-import com.meteor.mckook.model.AbstractKookMessage;
-import com.meteor.mckook.model.sub.PlayerChatMessage;
-import com.meteor.mckook.model.sub.PlayerJoinMessage;
+import com.meteor.mckook.message.AbstractKookMessage;
+import com.meteor.mckook.message.sub.PlayerChatMessage;
+import com.meteor.mckook.message.sub.PlayerJoinMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;

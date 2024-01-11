@@ -15,15 +15,15 @@ public class TextComponentHelper {
      * json转换为卡片消息
      */
     public static MultipleCardComponent json2CardComponent(String json,Map<String,String> contextMap){
-
         // 替换消息中占位符
         json = contextMap.entrySet().stream()
                 .reduce(json, (str, entry) -> str.replace("{" + entry.getKey() + "}", entry.getValue()), (s1, s2) -> s1);
 
         MultipleCardComponent multipleCardComponent = CardBuilder.buildCard(gson.fromJson(json, JsonArray.class));
         return multipleCardComponent;
-
     }
+
+
 
 
 

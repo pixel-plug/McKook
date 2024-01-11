@@ -1,16 +1,14 @@
-package com.meteor.mckook.model.sub;
+package com.meteor.mckook.message.sub;
 
 import com.meteor.mckook.McKook;
-import com.meteor.mckook.model.AbstractKookMessage;
+import com.meteor.mckook.message.AbstractKookMessage;
 import com.meteor.mckook.util.TextComponentHelper;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**

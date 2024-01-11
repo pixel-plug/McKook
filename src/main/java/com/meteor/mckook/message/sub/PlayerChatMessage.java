@@ -1,7 +1,7 @@
-package com.meteor.mckook.model.sub;
+package com.meteor.mckook.message.sub;
 
 import com.meteor.mckook.McKook;
-import com.meteor.mckook.model.AbstractKookMessage;
+import com.meteor.mckook.message.AbstractKookMessage;
 import com.meteor.mckook.util.TextComponentHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -12,7 +12,6 @@ import snw.jkook.event.EventHandler;
 import snw.jkook.event.channel.ChannelMessageEvent;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 
 /**

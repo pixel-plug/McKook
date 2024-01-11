@@ -50,6 +50,7 @@ public class KookBot {
 
             channelMap = new HashMap<>();
             ConfigurationSection channelConfig = plugin.getConfig().getConfigurationSection("setting.channel");
+
             channelConfig.getKeys(false).forEach(name->channelMap.put(name,httpAPI().getChannel(channelConfig.getString(name))));
 
             plugin.getLogger().info("已连接kook bot");
@@ -96,6 +97,11 @@ public class KookBot {
         return getKbcClient().getCore().getHttpAPI();
     }
 
+    /**
+     * 发送消息
+     * @param channels 指定频道
+     * @param baseComponent 消息
+     */
     public void sendMessage(List<String> channels,BaseComponent baseComponent){
         Bukkit.getScheduler().runTaskAsynchronously(plugin,()->{
             channels.forEach(channelId->{

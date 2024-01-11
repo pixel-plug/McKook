@@ -1,4 +1,4 @@
-package com.meteor.mckook.model;
+package com.meteor.mckook.message;
 
 import com.meteor.mckook.McKook;
 import org.bukkit.configuration.file.YamlConfiguration;
