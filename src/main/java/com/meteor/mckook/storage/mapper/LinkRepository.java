@@ -24,4 +24,6 @@ public interface LinkRepository{
      * @param kookUser
      */
     void link(String player,KookUser kookUser);
+
+    boolean kookUserIsLinked(String kookId);
 }

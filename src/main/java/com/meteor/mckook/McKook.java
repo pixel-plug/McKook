@@ -6,6 +6,7 @@ import com.meteor.mckook.message.AbstractKookMessage;
 import com.meteor.mckook.message.sub.PlayerChatMessage;
 import com.meteor.mckook.message.sub.PlayerJoinMessage;
 import com.meteor.mckook.message.sub.PlayerLinkMessage;
+import com.meteor.mckook.message.sub.WhitelistMessage;
 import com.meteor.mckook.storage.DataManager;
 import com.meteor.mckook.util.BaseConfig;
 import com.meteor.mckook.util.UpdateChecker;
@@ -64,7 +65,7 @@ public final class McKook extends JavaPlugin {
 
         abstractKookMessages = new ArrayList<>();
 
-        Arrays.asList("PlayerJoinMessage","PlayerChatMessage","PlayerLinkKookMessage").forEach(message -> {
+        Arrays.asList("PlayerJoinMessage","PlayerChatMessage","PlayerLinkKookMessage","WhitelistMessage").forEach(message -> {
             String r;
             File file = new File(getDataFolder(),r = "message/"+message+".yml");
             if(!file.exists()) saveResource(r,false);
@@ -87,9 +88,14 @@ public final class McKook extends JavaPlugin {
         PlayerLinkMessage playerLinkMessage = new PlayerLinkMessage(this,YamlConfiguration.loadConfiguration(
                 new File(getDataFolder(),"message/PlayerLinkKookMessage.yml")
         ));
-
         abstractKookMessages.add(playerLinkMessage);
         playerLinkMessage.register();
+
+        WhitelistMessage whitelistMessage = new WhitelistMessage(this,YamlConfiguration.loadConfiguration(
+                new File(getDataFolder(),"message/WhitelistMessage.yml")
+        ));
+        abstractKookMessages.add(whitelistMessage);
+        whitelistMessage.register();
     }
 
     @Override

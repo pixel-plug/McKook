@@ -1,0 +1,142 @@
+
+# 白名单
+
+# 需要在哪个频道获取白名单
+channel: '白名单申请'
+
+setting:
+  # 是否开启该模块
+  enable: false
+  # 是否绕过原版白名单中的玩家
+  bypass-whitelisted: false
+  # 发起白名单申请的消息格式 (正则表达式)
+  # 默认配置需要在频道输入 申请白名单 玩家id
+  # 注意空格
+  message: '申请白名单 ([A-Za-z0-9]+)'
+
+message:
+  # 被踢出提示
+  bypass: |
+    &f请前往KOOK服务器 &3&l白名单申请 &f频道
+    &f发送 &c申请白名单 {player} &f获取进入资格
+    &d温馨提示: &f注意空格噢
+  kook:
+    broadcast: |
+      [
+        {
+          "type": "card",
+          "theme": "secondary",
+          "size": "lg",
+          "modules": [
+            {
+              "type": "header",
+              "text": {
+                "type": "plain-text",
+                "content": "白名单通过"
+              }
+            },
+            {
+              "type": "section",
+              "text": {
+                "type": "plain-text",
+                "content": "{player} 的白名单申请已通过，欢迎他的加入"
+              }
+            }
+          ]
+        }
+      ]
+    link-success: |
+            [
+              {
+                "type": "card",
+                "theme": "secondary",
+                "size": "lg",
+                "modules": [
+                  {
+                    "type": "header",
+                    "text": {
+                      "type": "plain-text",
+                      "content": "已绑定游戏账号: {player}"
+                    }
+                  },
+                  {
+                    "type": "section",
+                    "text": {
+                      "type": "plain-text",
+                      "content": "现在你可以进入服务器了！"
+                    }
+                  },
+                  {
+                    "type": "action-group",
+                    "elements": [
+                      {
+                        "type": "button",
+                        "theme": "primary",
+                        "value": "ok",
+                        "text": {
+                          "type": "plain-text",
+                          "content": "确定"
+                        }
+                      },
+                      {
+                        "type": "button",
+                        "theme": "danger",
+                        "value": "cancel",
+                        "text": {
+                          "type": "plain-text",
+                          "content": "取消"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+    already-link: |
+      [
+        {
+          "type": "card",
+          "theme": "secondary",
+          "size": "lg",
+          "modules": [
+            {
+              "type": "header",
+              "text": {
+                "type": "plain-text",
+                "content": "你已经绑定过游戏账号了!"
+              }
+            },
+            {
+              "type": "section",
+              "text": {
+                "type": "plain-text",
+                "content": "请不要重复绑定!"
+              }
+            }
+          ]
+        }
+      ]
+    player-already-link: |
+      [
+        {
+          "type": "card",
+          "theme": "secondary",
+          "size": "lg",
+          "modules": [
+            {
+              "type": "header",
+              "text": {
+                "type": "plain-text",
+                "content": "该游戏账号已经被绑定过了"
+              }
+            },
+            {
+              "type": "section",
+              "text": {
+                "type": "plain-text",
+                "content": "可能有人的游戏id和你重复了"
+              }
+            }
+          ]
+        }
+      ]

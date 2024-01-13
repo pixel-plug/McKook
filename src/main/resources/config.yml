@@ -7,6 +7,7 @@ setting:
   channel:
     闲聊频道: '3416199282635005'
     公告频道: '7318381633665461'
+    白名单申请: '2989565677550120'
 
 kook:
   bot-token: '1/MjY5MjU=/vXEHeZIZhN1ssthMgWS/mg=='

@@ -111,4 +111,17 @@ public class LinkRepositoryImpl implements LinkRepository, BaseMapper {
         this.database.executeUpdate(sql,null,kookUser.getFieldList());
     }
 
+    @Override
+    public boolean kookUserIsLinked(String kookId) {
+        String sql = "select player from "+KOOK_USER_TABLE_NAME+" where id = ?";
+        return this.database.executeQuery(sql,null,Arrays.asList(kookId),resultSet -> {
+            try {
+                if(resultSet.next()) return true;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            return false;
+        });
+    }
+
 }

@@ -23,8 +23,6 @@ public class PlayerLinkMessage extends AbstractKookMessage {
     private String successLinkMessage;
     private String successLinkMessageMinecraft;
 
-    private boolean enableWhiteList;
-
 
     public PlayerLinkMessage(McKook plugin, YamlConfiguration yamlConfiguration) {
         super(plugin, yamlConfiguration);
@@ -42,7 +40,6 @@ public class PlayerLinkMessage extends AbstractKookMessage {
     public void inputVerifyCode(PrivateMessageReceivedEvent privateMessageReceivedEvent){
 
         String verifyCode = privateMessageReceivedEvent.getMessage().getComponent().toString();
-        getPlugin().getLogger().info("收到私聊消息: "+verifyCode);
         LinkCache linkCache = linkService.getLinkCache(verifyCode);
         if(linkCache!=null){
             String playerName = linkCache.getPlayerName();

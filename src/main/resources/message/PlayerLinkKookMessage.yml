@@ -1,5 +1,4 @@
 # 绑定KOOK账号
-
 message:
   success:
     minecraft: message.link.link-success #message.yml中的消息文本

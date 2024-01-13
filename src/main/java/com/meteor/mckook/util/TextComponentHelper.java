@@ -16,8 +16,10 @@ public class TextComponentHelper {
      */
     public static MultipleCardComponent json2CardComponent(String json,Map<String,String> contextMap){
         // 替换消息中占位符
-        json = contextMap.entrySet().stream()
-                .reduce(json, (str, entry) -> str.replace("{" + entry.getKey() + "}", entry.getValue()), (s1, s2) -> s1);
+        if(contextMap!=null) {
+            json = contextMap.entrySet().stream()
+                    .reduce(json, (str, entry) -> str.replace("{" + entry.getKey() + "}", entry.getValue()), (s1, s2) -> s1);
+        }
 
         MultipleCardComponent multipleCardComponent = CardBuilder.buildCard(gson.fromJson(json, JsonArray.class));
         return multipleCardComponent;

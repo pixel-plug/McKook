@@ -48,7 +48,7 @@ public interface FieldListable {
                 Object value = resultSet.getObject(fieldName);
                 if (value != null) {
                     if(value instanceof Integer it){
-                        field.set(this,it==0?false:true);
+                        field.set(this,it==1);
                         return;
                     }
                     field.set(this, value);

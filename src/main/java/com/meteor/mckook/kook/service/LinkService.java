@@ -74,17 +74,9 @@ public class LinkService implements KookService {
         return linkCacheCache.getIfPresent(verifyCode);
     }
 
+    public boolean kookUserIsLinked(String kookId){
+        return linkRepository.kookUserIsLinked(kookId);
 
-    /**
-     * 处理绑定
-     * @param verifyCode
-     * @param user
-     * @return
-     */
-    public void handler(String verifyCode,User user){
-        LinkCache linkCache = getLinkCache(verifyCode);
-        link(linkCache.getPlayerName(),user);
-        linkCacheCache.invalidate(verifyCode);
     }
 
 
