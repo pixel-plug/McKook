@@ -1,0 +1,52 @@
+# 绑定KOOK账号
+
+message:
+  success:
+    minecraft: message.link.link-success #message.yml中的消息文本
+    kook: |
+      [
+        {
+          "type": "card",
+          "theme": "secondary",
+          "size": "lg",
+          "modules": [
+            {
+              "type": "header",
+              "text": {
+                "type": "plain-text",
+                "content": "已绑定游戏账号: {player}"
+              }
+            },
+            {
+              "type": "section",
+              "text": {
+                "type": "plain-text",
+                "content": "绑定账号成功，回到游戏领取奖励吧!"
+              }
+            },
+            {
+              "type": "action-group",
+              "elements": [
+                {
+                  "type": "button",
+                  "theme": "primary",
+                  "value": "ok",
+                  "text": {
+                    "type": "plain-text",
+                    "content": "确定"
+                  }
+                },
+                {
+                  "type": "button",
+                  "theme": "danger",
+                  "value": "cancel",
+                  "text": {
+                    "type": "plain-text",
+                    "content": "取消"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]

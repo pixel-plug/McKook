@@ -47,6 +47,10 @@ public interface FieldListable {
             try {
                 Object value = resultSet.getObject(fieldName);
                 if (value != null) {
+                    if(value instanceof Integer it){
+                        field.set(this,it==0?false:true);
+                        return;
+                    }
                     field.set(this, value);
                 }
             } catch (IllegalAccessException e) {

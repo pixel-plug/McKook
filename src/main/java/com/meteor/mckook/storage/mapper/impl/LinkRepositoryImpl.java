@@ -5,11 +5,9 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import com.meteor.mckook.model.link.KookUser;
 import com.meteor.mckook.reflect.orm.ReflectFactory;
 import com.meteor.mckook.storage.AbstractDatabase;
-import com.meteor.mckook.storage.Database;
 import com.meteor.mckook.storage.mapper.LinkRepository;
 import com.meteor.mckook.storage.mapper.BaseMapper;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -25,7 +23,7 @@ public class LinkRepositoryImpl implements LinkRepository, BaseMapper {
     private Cache<String,KookUser> kookUserCache;
 
 
-    private final String KOOK_USER_TABLE_NAME = "KOOK_USER";
+    private final String KOOK_USER_TABLE_NAME = "KOOK_LINK_USER";
 
 
     public LinkRepositoryImpl(AbstractDatabase database){
@@ -36,29 +34,24 @@ public class LinkRepositoryImpl implements LinkRepository, BaseMapper {
                 .maximumSize(1000)
                 .build();
 
-        try {
 
-            Map<String,String> params = new HashMap<>();
+        Map<String,String> params = new HashMap<>();
 
-            params.put("table",KOOK_USER_TABLE_NAME);
+        params.put("table",KOOK_USER_TABLE_NAME);
 
-            // 创建kook用户表
-            this.database.executeQuery("CREATE TABLE IF NOT EXISTS {table} (\n" +
-                    "    id VARCHAR(255) PRIMARY KEY,\n" +
-                    "    playerName VARCHAR(25),\n" +
-                    "    userName VARCHAR(255),\n" +
-                    "    nickName VARCHAR(255),\n" +
-                    "    identifyNum VARCHAR(50),\n" +
-                    "    avatar TEXT,\n" +
-                    "    vip BOOLEAN,\n" +
-                    "    bot BOOLEAN,\n" +
-                    "    mobileVerified BOOLEAN,\n" +
-                    "    joinedAt BIGINT\n" +
-                    ");\n",params);
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        // 创建kook用户表
+        this.database.executeUpdate("CREATE TABLE IF NOT EXISTS {table} (\n" +
+                "    id VARCHAR(255) PRIMARY KEY,\n" +
+                "    player VARCHAR(25),\n" +
+                "    userName VARCHAR(255),\n" +
+                "    nickName VARCHAR(255),\n" +
+                "    identifyNum VARCHAR(50),\n" +
+                "    avatar TEXT,\n" +
+                "    vip BOOLEAN,\n" +
+                "    bot BOOLEAN,\n" +
+                "    mobileVerified BOOLEAN,\n" +
+                "    joinedAt BIGINT\n" +
+                ");\n",params,null);
 
     }
 
@@ -70,23 +63,18 @@ public class LinkRepositoryImpl implements LinkRepository, BaseMapper {
         if(kookUserCache.getIfPresent(player)!=null) return true;
 
         String sql = "select id from "+KOOK_USER_TABLE_NAME+" where player = ?";
-        ResultSet resultSet = null;
-        try {
-            resultSet = this.database.executeQuery(sql, null, Arrays.asList(player));
-            if(resultSet.next()){
-                kookUserCache.put(player,getLinkedKookUser(player));
-                return true;
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }finally {
+
+        return this.database.executeQuery(sql,null,Arrays.asList(player),resultSet -> {
             try {
-                resultSet.close();
+                if(resultSet.next()){
+                    kookUserCache.put(player,getLinkedKookUser(player));
+                    return true;
+                }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-        }
-        return false;
+            return false;
+        });
     }
 
     @Override
@@ -98,38 +86,29 @@ public class LinkRepositoryImpl implements LinkRepository, BaseMapper {
         }
 
         String sql = "select * from "+KOOK_USER_TABLE_NAME+" where player = ?";
-        ResultSet resultSet = null;
-        try {
-            resultSet = this.database.executeQuery(sql, null, Arrays.asList(player));
-            if(resultSet.next()){
-                KookUser andPopulate = ReflectFactory.createAndPopulate(KookUser.class, resultSet);
-                kookUserCache.put(player,andPopulate);
-                return getLinkedKookUser(player);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } finally {
+
+        return this.database.executeQuery(sql,null,Arrays.asList(player),resultSet -> {
             try {
-                resultSet.close();
+                if(resultSet.next()){
+                    KookUser andPopulate = ReflectFactory.createAndPopulate(KookUser.class, resultSet);
+                    kookUserCache.put(player,andPopulate);
+                    return getLinkedKookUser(player);
+                }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            } catch (InstantiationException e) {
+                throw new RuntimeException(e);
             }
-        }
-        return null;
+            return null;
+        });
     }
 
     @Override
     public void link(String player, KookUser kookUser) {
-        String sql = "INSERT INTO "+KOOK_USER_TABLE_NAME+" (id, playerName, userName, nickName, identifyNum, avatar, vip, bot, mobileVerified, joinedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try {
-            this.database.executeUpdate(sql,null,kookUser.getFieldList());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        String sql = "INSERT INTO "+KOOK_USER_TABLE_NAME+" (id, player, userName, nickName, identifyNum, avatar, vip, bot, mobileVerified, joinedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        this.database.executeUpdate(sql,null,kookUser.getFieldList());
     }
 
 }

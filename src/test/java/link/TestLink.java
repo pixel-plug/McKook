@@ -11,7 +11,7 @@ public class TestLink {
         kookUser.setBot(false);
         kookUser.setAvatar("avater");
         kookUser.setUserName("username");
-        kookUser.setPlayerName("playername");
+        kookUser.setPlayer("playername");
         kookUser.setMobileVerified(false);
         kookUser.setIdentifyNum("idn");
         kookUser.setJoinedAt(System.currentTimeMillis());

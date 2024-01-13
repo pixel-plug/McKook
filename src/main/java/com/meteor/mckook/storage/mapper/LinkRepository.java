@@ -18,5 +18,10 @@ public interface LinkRepository{
      */
     KookUser getLinkedKookUser(String player);
 
+    /**
+     * 绑定账号
+     * @param player
+     * @param kookUser
+     */
     void link(String player,KookUser kookUser);
 }

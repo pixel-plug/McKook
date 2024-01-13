@@ -1,0 +1,21 @@
+prefix: '&8[&aMcKook&8]'
+message:
+  reload: '@prefix@ &f重载配置文件'
+  help:
+    - '@prefix@ &f&l|HELP'
+    - ''
+    - '&7/mckook link &e绑定KOOK账号'
+    - '&7/mkook reload &e重载配置文件'
+  link:
+    already-link: '@prefix@ &7请不要重复绑定'
+    exist-verify: '@prefix@ &7有一个未处理的绑定请求，你的验证码是 &c@verify-code@'
+    link-success:
+      - ''
+      - '&f 已成功绑定KOOK账户 &a@user-nickname@'
+      - ''
+    build-verify:
+      - ''
+      - '&f 你的验证码是 &e@verify-code@'
+      - '&f 请在 &aKOOK频道 &f私聊机器人输入'
+      - '&f 验证码 &e5分钟 &f内有效'
+      - ''

@@ -6,25 +6,48 @@ import com.meteor.mckook.storage.mapper.BaseMapper;
 import com.meteor.mckook.storage.mapper.LinkRepository;
 import com.meteor.mckook.storage.mapper.impl.LinkRepositoryImpl;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class DataManager {
 
-    private static DataManager instance;
+    public static DataManager instance;
 
     private McKook plugin;
 
-    private Database database;
+    private AbstractDatabase abstractDatabase;
 
     private Map<Class<?>, BaseMapper> baseMapperMap;
 
-    private DataManager(){
+    private DataManager(McKook plugin){
+        this.plugin = plugin;
+        this.abstractDatabase = new SqliteDatabase(plugin);
+
+        try {
+            this.abstractDatabase.connect();
+            plugin.getLogger().info("已连接数据库");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            plugin.getLogger().info("数据库连接失败");
+        }
+
         this.baseMapperMap = new HashMap<>();
+
+        baseMapperMap.put(LinkRepository.class,new LinkRepositoryImpl(abstractDatabase));
+
     }
 
-    public static void init(){
-        instance = new DataManager();
+    public void close(){
+        try {
+            abstractDatabase.disconnect();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void init(McKook plugin){
+        instance = new DataManager(plugin);
     }
 
 

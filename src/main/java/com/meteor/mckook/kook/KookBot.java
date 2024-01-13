@@ -2,10 +2,12 @@ package com.meteor.mckook.kook;
 
 
 import com.meteor.mckook.McKook;
+import com.meteor.mckook.kook.service.LinkService;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import snw.jkook.HttpAPI;
 import snw.jkook.config.file.YamlConfiguration;
+import snw.jkook.entity.Guild;
 import snw.jkook.entity.channel.Channel;
 import snw.jkook.entity.channel.TextChannel;
 import snw.jkook.event.Listener;
@@ -25,6 +27,7 @@ public class KookBot {
     private McKook plugin;
 
     private KBCClient kbcClient;
+    private String guild;
 
     private boolean invalid;
 
@@ -33,8 +36,9 @@ public class KookBot {
      */
     private Map<String,Channel> channelMap;
 
-    public KookBot(McKook plugin){
+    private Map<Class<? extends KookService>,KookService> kookServiceMap;
 
+    public KookBot(McKook plugin){
         this.plugin = plugin;
 
         try {
@@ -47,18 +51,35 @@ public class KookBot {
                     plugin.getConfig().getString("kook.bot-token")
                     );
             kbcClient.start();
-
+            this.guild = plugin.getConfig().getString("setting.guild");
             channelMap = new HashMap<>();
             ConfigurationSection channelConfig = plugin.getConfig().getConfigurationSection("setting.channel");
-
             channelConfig.getKeys(false).forEach(name->channelMap.put(name,httpAPI().getChannel(channelConfig.getString(name))));
-
             plugin.getLogger().info("已连接kook bot");
         } catch (Exception e) {
             invalid = true;
             plugin.getLogger().info("token填写错误,当前插件不可用.检查配置正确后使用 /mkook reload 重载");
         }
 
+        this.registerService();
+
+    }
+
+    private void registerService(){
+        this.kookServiceMap = new HashMap<>();
+        this.kookServiceMap.put(LinkService.class,new LinkService(this));
+    }
+
+    public <T extends KookService> T getService(Class<T> kookService){
+        return kookService.cast(kookServiceMap.get(kookService));
+    }
+
+
+    /**
+     * 获取使用服务器
+     */
+    public Guild getGuild(){
+        return httpAPI().getGuild(this.guild);
     }
 
     /**

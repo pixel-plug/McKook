@@ -1,6 +1,9 @@
 package com.meteor.mckook.command;
 
 import com.meteor.mckook.McKook;
+import com.meteor.mckook.command.cmds.HelpCmd;
+import com.meteor.mckook.command.cmds.LinkCmd;
+import com.meteor.mckook.command.cmds.ReloadCmd;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -19,6 +22,9 @@ public class CommandManager implements CommandExecutor, TabCompleter {
 
     public void init(){
         this.commands = new HashMap<>();
+        register(new LinkCmd(plugin));
+        register(new HelpCmd(plugin));
+        register(new ReloadCmd(plugin));
     }
 
     public void register(SubCmd cmd){

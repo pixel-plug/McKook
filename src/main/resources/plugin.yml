@@ -4,4 +4,4 @@ main: com.meteor.mckook.McKook
 api-version: 1.13
 author: meteor
 commands:
-  mkook:
+  mckook:
