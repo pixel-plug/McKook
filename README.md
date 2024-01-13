@@ -1,5 +1,5 @@
 ## **McKook**
-链接Kook和Spigot的桥梁
+为Kook和MC建立桥梁，就像DiscordSRV一样
 
 ![image](https://github.com/meteorOSS/McKook/assets/61687266/f25ff878-5e7c-4b33-9cbc-9664634745f3)
 
