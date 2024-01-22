@@ -1,6 +1,8 @@
 ## **McKook**
 为Kook和MC建立桥梁，就像DiscordSRV一样
 
+![view](https://moe-counter.glitch.me/get/@mcKook.readme)
+
 ![image](https://github.com/meteorOSS/McKook/assets/61687266/f25ff878-5e7c-4b33-9cbc-9664634745f3)
 
 ![image](https://github.com/meteorOSS/McKook/assets/61687266/26be8025-6d61-4e01-881d-876971c068e7)
@@ -15,6 +17,8 @@
 1. Minecraft与Kook之间的聊天同步
 2. 根据MC中一些事件转播到Kook中 (如成就解锁,加入,退出游戏等)
    ......
+
+
 
 ## 快速开始
 
