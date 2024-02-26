@@ -2,16 +2,19 @@ package com.meteor.mckook.message.sub;
 
 import com.meteor.mckook.McKook;
 import com.meteor.mckook.message.AbstractKookMessage;
+import com.meteor.mckook.util.BaseConfig;
 import com.meteor.mckook.util.TextComponentHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import snw.jkook.entity.User;
 import snw.jkook.event.EventHandler;
 import snw.jkook.event.channel.ChannelMessageEvent;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -51,21 +54,30 @@ public class PlayerChatMessage extends AbstractKookMessage {
     }
 
 
+    private boolean isInPassWorld(Player player){
+        List<String> blackWorlds = BaseConfig.instance.getConfig().getStringList("setting.black-worlds");
+        return blackWorlds==null || !blackWorlds.contains(player.getWorld().getName());
+    }
+
     @EventHandler
     public void onChannelMessage(ChannelMessageEvent channelMessageEvent){
         if(channelMessageEvent.getChannel().getId().equalsIgnoreCase(getPlugin().getKookBot().getChannelMap().get(channel)
                 .getId())){
-            Bukkit.broadcastMessage(getMinecraftMessage(channelMessageEvent));
+            Bukkit.getOnlinePlayers().forEach(player -> {
+                if(isInPassWorld(player))
+                    player.sendMessage(getMinecraftMessage(channelMessageEvent));
+            });
         }
     }
 
 
     @org.bukkit.event.EventHandler
     public void onChat(AsyncPlayerChatEvent asyncPlayerChatEvent){
-        Map<String, String> context = context(asyncPlayerChatEvent);
-        context.put("message",asyncPlayerChatEvent.getMessage());
-        getPlugin().getKookBot().sendMessage(Arrays.asList(channel), TextComponentHelper.json2CardComponent(this.kookMessage,context));
+        Player player = asyncPlayerChatEvent.getPlayer();
+        if(isInPassWorld(player)){
+            Map<String, String> context = context(asyncPlayerChatEvent);
+            context.put("message",asyncPlayerChatEvent.getMessage());
+            getPlugin().getKookBot().sendMessage(Arrays.asList(channel), TextComponentHelper.json2CardComponent(this.kookMessage,context));
+        }
     }
-
-
 }

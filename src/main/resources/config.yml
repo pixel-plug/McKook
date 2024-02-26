@@ -2,6 +2,9 @@
 # wiki 地址: https://github.com/meteorOSS/McKook
 
 setting:
+  # 黑名单世界 (在该世界的玩家消息不会被转发)
+  black-worlds:
+    - 'exam'
   # 使用频道号
   guild: '9922005485817007'
   channel:

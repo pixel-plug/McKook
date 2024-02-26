@@ -1,6 +1,7 @@
 package com.meteor.mckook.util;
 
 import com.meteor.mckook.McKook;
+import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
 import java.util.Arrays;
@@ -26,6 +27,10 @@ public class BaseConfig {
 
         this.reload();
 
+    }
+
+    public FileConfiguration getConfig(){
+        return plugin.getConfig();
     }
 
     public void reload(){
