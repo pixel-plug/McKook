@@ -41,3 +41,6 @@
 
 这是我的爱发电 [https://afdian.net/a/zshzsh](https://afdian.net/a/zshzsh)
 
+### 捐赠名单
+
+> 来自 @549726031 的 50￥
