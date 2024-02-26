@@ -6,7 +6,7 @@
 
     <groupId>com.meteor</groupId>
     <artifactId>McKook</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.4-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>McKook</name>
